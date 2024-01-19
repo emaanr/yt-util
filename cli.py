@@ -85,7 +85,7 @@ if __name__ == "__main__":
     start = datetime.datetime.now()
 
     # Logger
-    logger = _setup_logging("yt_util.log")
+    logger = _setup_logging("yt-util-cli.log") # See "yt-util-gui.log" if using GUI
     logger.info("Program Started")
 
     # Program Status
