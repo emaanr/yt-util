@@ -8,17 +8,16 @@
 - [Table of Contents](#table-of-contents)
   - [Reason](#reason)
   - [Modules Used](#modules-used)
-    - [Tkinter](#tkinter)
-    - [Requests](#requests)
-    - [PyTube](#pytube)
-    - [Logging](#logging)
-    - [Argparse](#argparse)
-  - [Might Use](#might-use)
-    - [Pandas](#pandas)
-    - [JSON](#json)
-    - [CSV](#csv)
+    - [`tk`](#tk)
+    - [`pytube`](#pytube)
+    - [`logging`](#logging)
+    - [`argparse`](#argparse)
+    - [`os`](#os)
+    - [`re`](#re)
+    - [`math`](#math)
   - [Stack](#stack)
   - [Use Guide](#use-guide)
+  - [Notes](#notes)
 
 ## Reason
 
@@ -26,55 +25,43 @@ It can be helpful to know how much content is in a YouTube Playlist as well as h
 
 ## Modules Used
 
-- Tkinter
-- PyTube
-- Requests
-- Logging
-- Argparse
+- `tk`
+- `pytube`
+- `logging`
+- `argparse`
+- `os`
+- `re`
+- `math`
 
-### Tkinter
+### `tk`
 
 ```
 pip install tk
 ```
 
-### Requests
-
-```
-pip install requests
-```
-
-### PyTube
+### `pytube`
 
 ```
 pip install pytube
 ```
 
-### Logging
+### `logging`
 
 - Part of Python Standard Library, just need to `import`.
 
-### Argparse
+### `argparse`
 
 - Part of Python Standard Library, just need to `import`.
 
-## Might Use
-
-- Pandas
-- JSON
-- CSV
-
-### Pandas
-
-```
-pip install pandas
-```
-
-### JSON
+### `os`
 
 - Part of Python Standard Library, just need to `import`.
 
-### CSV
+### `re`
+
+- Part of Python Standard Library, just need to `import`.
+
+### `math`
 
 - Part of Python Standard Library, just need to `import`.
 
@@ -87,3 +74,9 @@ pip install pandas
 ## Use Guide
 
 To be updated once the application is finished.
+
+## Notes
+
+Ran into some issues with PyTube version 15.0.0 when trying to get video transcript. In order to ensure your fork/clone of this repo works, make the following change to the PyTybe `captions.py` file, specifically the `def xml_caption_to_srt(self, xml_captions: str) -> str` function which needs to be entirely replaced with the following code in order to work: [Issue #1085](https://github.com/pytube/pytube/issues/1085#issuecomment-950327958) via community contribution.
+
+Also, used this regex code written by community member: [pgngp](https://stackoverflow.com/a/51073232).
