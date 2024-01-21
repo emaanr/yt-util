@@ -5,25 +5,23 @@ import re
 import math
 from pytube import Playlist, YouTube
 
+# Returns list of videos in passed playlist as pytube "YouTube" objects
 def get_videos_in_playlist(playlist_id):
     videos_in_playlist = []
     playlist = Playlist(f"https://www.youtube.com/playlist?list={playlist_id}")
-
     for video in playlist:
         video = YouTube(video)
         videos_in_playlist.append(video)
-
     return videos_in_playlist
 
-# Return total duration in seconds of videos in playlist
-def get_total_duration(videos_in_playlist):
-    playlist = videos_in_playlist
+# Return total duration in seconds of all videos in passed playlist
+def get_total_duration(playlist):
     total_dur = 0
     for video in playlist:
         total_dur += video.length
     return total_dur
 
-# Calculate duration in specified unit
+# Calculate duration in specified unit given duration in seconds
 def get_duration_in_unit(duration, unit):
     match unit:
         case "seconds":
@@ -76,11 +74,13 @@ def apply_playback_speed(duration, playback_speed):
 
 # Get video transcript
 def get_transcript(video):
+    # Get caption track
     video = YouTube(video)
     video.bypass_age_gate()
     captions = video.captions
     caption_track = captions['en']
     
+    # Parse caption track and extract transcript
     transcript = ''
     if caption_track:
         caption_track.download('captions', srt=True)
@@ -90,6 +90,7 @@ def get_transcript(video):
                 if re.search('^[0-9]+$', line) is None and re.search('^[0-9]{2}:[0-9]{2}:[0-9]{2}', line) is None and re.search('^$', line) is None:
                     transcript += ' ' + line.rstrip('\n')
                     transcript = transcript.lstrip()
+    
     os.remove('captions (en).srt')
     return transcript
 
