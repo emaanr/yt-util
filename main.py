@@ -1,6 +1,6 @@
 import tkinter as tk
 from ttkbootstrap import Style
-from tkinter import ttk
+import ttkbootstrap as ttk
 import functions
 
 # Variables
@@ -46,8 +46,8 @@ def on_entry_focus_out(event):
 window = tk.Tk()
 style = Style("darkly")
 window.title(title)
-window.minsize(500, 125)
-window.geometry("550x150")
+window.minsize(600, 200)
+window.geometry("600x200")
 window.maxsize(600, 200)
 
 # Default Values
@@ -55,7 +55,7 @@ default_unit = tk.StringVar(value=units[2])
 default_playlist_id = "Enter Playlist ID"
 
 # Create Notebook
-notebook = ttk.Notebook(master=window)
+notebook = ttk.Notebook(master=window, style=style.configure("TNotebook.Tab", font=("Roboto", 14)))
 
 # Create Tabs
 yt_pdc = ttk.Frame(master=notebook)
@@ -67,11 +67,11 @@ enter_playlist_id = ttk.Frame(master=yt_pdc)
 calculate_duration_in_units = ttk.Frame(master=yt_pdc)
 
 # Create Label
-label = ttk.Label(master=content, text=title, font=('Helvetica', 18), background="red")
-label.grid(row=0, column=0, columnspan=3)
+label = ttk.Label(master=content, text=title, foreground="red")
+label.grid(row=0, column=0, columnspan=2)
 
 # Create Entry Label
-entry_label = tk.Label(master=enter_playlist_id, text="https://www.youtube.com/playlist?list=")
+entry_label = ttk.Label(master=enter_playlist_id, text="https://www.youtube.com/playlist?list=")
 entry_label.grid(row=1, column=0, pady=0)
 
 # Create Entry
@@ -82,16 +82,16 @@ entry.bind("<FocusOut>", on_entry_focus_out)
 entry.grid(row=1, column=1, pady=0)
 
 # Create Button
-button = tk.Button(master=calculate_duration_in_units, text="Calculate", command=get_playlist_duration)
-button.grid(row=0, column=2, pady=0)
+button = ttk.Button(master=calculate_duration_in_units, text="Calculate", command=get_playlist_duration)
+button.grid(row=2, column=0, pady=0)
 
 # Create Combobox
 combo = ttk.Combobox(master=calculate_duration_in_units, values=units, textvariable=default_unit, state="readonly")
-combo.grid(row=0, column=3, padx=0, pady=0)
+combo.grid(row=2, column=1, padx=0, pady=0)
 
 # Create Label
-result = ttk.Label(master=content, text="", font=('Helvetica', 18))
-result.grid(row=3, column=0, columnspan=4, pady=0)
+result = ttk.Label(master=content, text="")
+result.grid(row=3, column=0, columnspan=2, pady=0)
 
 # Pack content into window
 content.pack()
@@ -103,7 +103,7 @@ notebook.add(child=yt_pdc, text="Playlist Duration Calculator")
 notebook.add(child=yt_gvt, text="Generate Video Transcript")
 
 # Pack Notebook into Window
-notebook.pack()
+notebook.pack(expand=True, fill='both')
 
 # Updates the GUI and checks for Events
 window.mainloop()
